@@ -20,15 +20,15 @@ void setup()
 bool sendData()
 {
     CAN_FRAME outgoing;
-    outgoing.id = 0x400;
+    outgoing.id = 0x00;
     outgoing.extended = false;
     outgoing.priority = 4;                            //0-15 lower is higher priority
     outgoing.length   = 8;
     
-    outgoing.data.s0 = 0xFEED;
-    outgoing.data.byte[2] = 0xDD;
-    outgoing.data.byte[3] = 0x55;
-    outgoing.data.high = millis();                  // Include a little changing data in each packet.
+    outgoing.data.s0 = 0x0;
+    outgoing.data.byte[2] = 0x0;
+    outgoing.data.byte[3] = 0x0;
+    outgoing.data.high = 0;                  // Include a little changing data in each packet.
     return(Can0.sendFrame(outgoing));               // Take note:  sendFrame() really only places the message into the outgoing queue,
                                                     //             and will return TRUE if is succeeds.  This does NOT mean that the 
                                                     //             message was actually  successfully sent at a later time.
@@ -36,8 +36,8 @@ bool sendData()
 
 void loop(){
   static unsigned long lastTime = 0;
-
-  if ((millis() - lastTime) > 500)                  // Send something out every 500mS
+/*
+  if ((millis() - lastTime) > 5000)                  // Send something out every 500mS
   {
      lastTime = millis();
           
@@ -49,4 +49,5 @@ void loop(){
       else
         Serial.println(" - Failed");
   }
+  */
 }
